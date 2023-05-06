@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>13位时间戳</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			background-color: #ffffff; /* Twitter白色背景 */
+		}
+		h1 {
+			text-align: center;
+			margin-top: 20px;
+			font-size: 24px;
+			color: #14171a; /* Twitter灰黑色文字 */
+		}
+		.container {
+			width: 100%;
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		.timestamp {
+			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+		.timestamp div {
+			flex-basis: 100%;
+			margin-bottom: 10px;
+			color: #657786; /* Twitter浅灰色文字 */
+		}
+		.timestamp button {
+			background-color: #1DA1F2; /* Twitter蓝色按钮 */
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+		.timestamp input {
+			flex-grow: 1;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+		}
+    .message {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: green;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>13位时间戳</h1>
+		<div class="timestamp">
+			<div>每天的10:00</div>
+			<input type="text" value="...">
+			<button class="copy-btn">复制</button>
+		</div>
+		<div class="timestamp">
+			<div>每天的10:30</div>
+			<input type="text" value="...">
+			<button class="copy-btn">复制</button>
+		</div>
+		<div class="timestamp">
+			<div>每天的15:00</div>
+			<input type="text" value="...">
+			<button class="copy-btn">复制</button>
+		</div>
+		<div class="timestamp">
+			<div>每天的16:00</div>
+			<input type="text" value="...">
+			<button class="copy-btn">复制</button>
+		</div>
+	</div>
+  <div class="message"></div>
+	<script>
+		const timestamps = [
+			getTimestamp(10, 0),
+			getTimestamp(10, 30),
+			getTimestamp(15, 0),
+			getTimestamp(16, 0)
+		]
+
+		const timestampInputs = document.querySelectorAll('.timestamp input');
+		const copyButtons = document.querySelectorAll('.copy-btn');
+    const messageEl = document.querySelector('.message');
+
+		for (let i = 0; i < timestamps.length; i++) {
+			timestampInputs[i].value = timestamps[i];
+			copyButtons[i].addEventListener('click', () => {
+				copyToClipboard(timestamps[i]);
+			});
+		}
+
+		function getTimestamp(hour, minute) {
+			const date = new Date();
+			date.setHours(hour);
+			date.setMinutes(minute);
+			date.setSeconds(0);
+			return date.getTime();
+		}
+
+		function copyToClipboard(text) {
+			const el = document.createElement('textarea');
+			el.value = text;
+			document.body.appendChild(el);
+			el.select();
+			document.execCommand('copy');
+			document.body.removeChild(el);
+      showMessage('已复制到剪贴板');
+		}
+function showMessage(message) {
+      messageEl.textContent = message;
+      messageEl.style.opacity = 1;
+
+      setTimeout(() => {
+        messageEl.style.opacity = 0;
+      }, 2000);
+    }
+	</script>
+</body>
+</html>
