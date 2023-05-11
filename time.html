@@ -92,6 +92,11 @@
 			<input type="text" value="...">
 			<button class="copy-btn">复制</button>
 		</div>
+		<div class="timestamp">
+			<div>每天的17:00</div>
+			<input type="text" value="...">
+			<button class="copy-btn">复制</button>
+		</div>
 	</div>
   <div class="message"></div>
 	<script>
@@ -99,7 +104,8 @@
 			getTimestamp(10, 0),
 			getTimestamp(10, 30),
 			getTimestamp(15, 0),
-			getTimestamp(16, 0)
+			getTimestamp(16, 0),
+			getTimestamp(17, 0)
 		]
 
 		const timestampInputs = document.querySelectorAll('.timestamp input');
